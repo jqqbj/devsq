@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Push</title>
+</head>
+<script>
+    if (typeof(EventSource) !== "undefined") {
+        var eventSource = new EventSource("/push");
+        eventSource.addEventListener('message', function (event) {
+            document.getElementById("result").innerHTML += event.data + "<br />";
+        });
+        eventSource.addEventListener('error', function (event) {
+            console.log("错误：" + event);
+        });
+        eventSource.addEventListener('open', function (event) {
+            console.log("建立连接：" + event);
+        });
+    }
+    else {
+        document.getElementById("result").innerHTML = "抱歉，您的浏览器不支持 server-sent 事件 ...";
+    }
+</script>
+<body>
+    DIV： <div id="result"></div>
+</body>
+</html>
